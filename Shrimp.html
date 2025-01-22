@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shrimp Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #ff4500;
+            font-size: 2.5em;
+        }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e63900;
+        }
+        .loading, .result {
+            display: none;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffcc00;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(500px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Shrimp Checker</h1>
+    <p>Are you a shrimp?</p>
+    <button id="checkButton">Check</button>
+
+    <div class="loading" id="loading">
+        Shrimp checking in progress...
+    </div>
+
+    <div class="result" id="result">
+        🎉 Congratulations, you are not a shrimp! 🎉
+    </div>
+
+    <script>
+        const checkButton = document.getElementById('checkButton');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+
+        checkButton.addEventListener('click', () => {
+            checkButton.style.display = 'none';
+            loading.style.display = 'block';
+
+            // Simulate the loading process
+            setTimeout(() => {
+                loading.style.display = 'none';
+                result.style.display = 'block';
+                launchConfetti();
+            }, 10000); // 10 seconds
+        });
+
+        function launchConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * window.innerWidth}px`;
+                confetti.style.top = `${Math.random() * -200}px`;
+                confetti.style.backgroundColor = getRandomColor();
+                confetti.style.animationDelay = `${Math.random() * 3}s`;
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = ['#ff4500', '#ffcc00', '#32cd32', '#1e90ff', '#ff69b4'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
+
